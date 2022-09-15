@@ -1,0 +1,9 @@
+Error:
+raise Py4JError( py4j.protocol.Py4JError: org.apache.spark.api.python.PythonUtils.getPuthonAuthSocketTimeout does not exist in the JVM
+
+Solution: set your environment in ~/.bashrc file
+
+export SPARK_HOME=/home/veer/pyspark-hadoop/spark-3.0.0-bin-hadoop3.2
+export PATH=$SPARK_HOME/bin:$SPARK_HOME/sbin
+export PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.9-src.zip:$PYTHONPATH
+
