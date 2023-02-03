@@ -1,0 +1,45 @@
+1- create your custom script which you want to execute before shutdown
+2- I'm creating for testing purpose
+ 
+vim /tmp/myBackupService.sh
+
+#!/bin/bash
+
+echo -e "`date` : Custom service is ruuning create by Chandraveer Singh" > /tmp/service.txt
+
+
+
+3- chmod u+x /tmp/myBackupService.sh
+4- vim /etc/systemd/system/backupData-before-shutdown.service
+
+[Unit]
+Description=NAS Backup
+DefaultDependencies=no
+Before=shutdown.target
+
+[Service]
+Type=oneshot
+ExecStart=/tmp/myBackupService.sh
+TimeoutStartSec=0
+
+[Install]
+WantedBy=shutdown.target
+
+5- systemctl daemon-reload
+6- systemctl enable backupData-before-shutdown.service
+7- reboot
+
+
+Troubleshooting:
+
+If found error somethig like 
+
+Job for backupData-before-shutdown.service failed because the control process exited with error code.
+
+Solution: run this below commands
+
+#setenforce 0
+#systemctl enable backupData-before-shutdown.service
+#systemctl start backupData-before-shutdown.service
+#reboot
+
